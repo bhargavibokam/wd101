@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    /* --- Reset Defaults --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* --- Body --- */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+    }
+    
+    /* --- Form Container --- */
+    .form-container {
+      background: #fff;
+      width: 450px;
+      margin: 20px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* --- Form Heading --- */
+    .form-container h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    /* --- Form Group --- */
+    .form-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    /* --- Label --- */
+    label {
+      font-size: 16px;
+      font-weight: normal;
+      color: #333;
+      width: 30%;
+      text-align: left;
+    }
+    
+    /* --- Input Fields --- */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: #f5f5f5;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      width: 65%;
+    }
+    
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder,
+    input[type="password"]::placeholder {
+      color: #888;
+    }
+    
+    /* --- Date picker styling --- */
+    .date-picker {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+    }
+    
+    .calendar-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    /* --- Checkbox Group --- */
+    .checkbox-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 15px;
+      margin-left: 0;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #28a745;
+      margin-right: 5px;
+    }
+    
+    .checkbox-group label {
+      margin-bottom: 0;
+      cursor: pointer;
+      font-weight: normal;
+      width: auto;
+    }
+    
+    /* --- Submit Button --- */
+    button[type="submit"] {
+      width: auto;
+      padding: 12px 30px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: block;
+      margin-left: 0;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: #218838;
+    }
+    
+    /* --- Entries Container --- */
+    .entries-container {
+      background: #fff;
+      width: 800px;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* --- Entries Heading --- */
+    .entries-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    /* --- Table Styling --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 12px 10px;
+      font-size: 14px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f9f9f9;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Form Section -->
+  <div class="form-container">
+    <h1>Registration Form</h1>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <div style="position: relative; width: 65%;">
+          <input type="text" id="dob" name="dob" placeholder="dd/mm/yyyy" required>
+          <div class="date-picker">
+            <input type="date" id="dobPicker" style="display: none;">
+            <button type="button" id="datePickerBtn" class="calendar-btn">📅</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <input type="checkbox" id="acceptTerms" required>
+        <label for="acceptTerms">Accept Terms & Conditions</label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Entries Section -->
+  <div class="entries-container">
+    <h2>Entries</h2>
+    <table id="entriesTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>dob</th>
+          <th>accepted terms?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Entries will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html> 
