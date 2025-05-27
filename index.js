@@ -15,7 +15,7 @@ function loadEntries() {
       <td>${entry.email}</td>
       <td>${entry.password}</td>
       <td>${entry.dob}</td>
-      <td>${entry.acceptTerms}</td>
+      <td>${entry.acceptTerms ? 'Yes' : 'No'}</td>
     `;
     entriesTableBody.appendChild(newRow);
   });
@@ -66,17 +66,24 @@ function parseDateString(dateStr) {
   const month = parseInt(parts[1], 10) - 1; // JS months are 0-indexed
   const year = parseInt(parts[2], 10);
   
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+  if (day < 1 || day > 31) return null;
+  if (month < 0 || month > 11) return null;
+  if (year < 1900 || year > new Date().getFullYear()) return null;
+  
   return new Date(year, month, day);
 }
 
 // Validate email format
 function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
 }
 
 // Validate age is between 18 and 55
 function isValidAge(birthDate) {
+  if (!birthDate || !(birthDate instanceof Date) || isNaN(birthDate)) return false;
+  
   const today = new Date();
   const age = today.getFullYear() - birthDate.getFullYear();
   const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -92,12 +99,18 @@ form.addEventListener('submit', function(event) {
   event.preventDefault();
 
   // Get form values
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  const dateStr = dobInput.value;
+  const dateStr = dobInput.value.trim();
   const birthDate = parseDateString(dateStr);
   const acceptTerms = document.getElementById('acceptTerms').checked;
+
+  // Validate name
+  if (!name) {
+    alert('Please enter a valid name');
+    return;
+  }
 
   // Validate email
   if (!isValidEmail(email)) {
@@ -105,7 +118,13 @@ form.addEventListener('submit', function(event) {
     return;
   }
 
-  // Validate age
+  // Validate password
+  if (!password) {
+    alert('Please enter a password');
+    return;
+  }
+
+  // Validate date of birth
   if (!birthDate || !isValidAge(birthDate)) {
     alert('Age must be between 18 and 55 years');
     return;
@@ -139,7 +158,7 @@ form.addEventListener('submit', function(event) {
     <td>${email}</td>
     <td>${password}</td>
     <td>${formattedDate}</td>
-    <td>${acceptTerms}</td>
+    <td>${acceptTerms ? 'Yes' : 'No'}</td>
   `;
 
   entriesTableBody.appendChild(newRow);
