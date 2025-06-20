@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2 id="heading">Registration Form</h2>
+    <form id="registrationForm">
+      <label>Name: <input type="text" id="name" required /></label><br />
+      <label>Email: <input type="email" id="email" required /></label><br />
+      <label>Password: <input type="password" id="password" required /></label
+      ><br />
+      <label>Date of Birth: <input type="date" id="dob" required /></label
+      ><br />
+      <label>
+        <input type="checkbox" id="acceptTerms" required />
+        I accept the terms and conditions </label
+      ><br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <h3>Registered Users</h3>
+    <table border="1" id="userTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Dob</th>
+          <th>Accepted terms?</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script src="index.js"></script>
+  </body>
+</html>
